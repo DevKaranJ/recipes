@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :users, only: [:index] do
-    resources :recipes, only: [:index, :show, :new, :create] # Nested routes for recipes under users
+    resources :recipes, only: [:index, :show, :new, :create, :edit, :update, :destroy]
     patch 'update_name', to: 'users#update_name', as: 'update_name'
   end
 
