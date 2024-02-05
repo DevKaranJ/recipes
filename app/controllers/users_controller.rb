@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     # Log out the user using Devise's sign_out method
     sign_out current_user
     # You can also redirect to a specific page after logout
-    redirect_to root_path, notice: "Logged out successfully"
+    redirect_to root_path, notice: 'Logged out successfully'
   end
 
   def update_name
