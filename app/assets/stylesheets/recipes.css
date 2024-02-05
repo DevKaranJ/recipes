@@ -1,0 +1,51 @@
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  .recipe_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 3px solid black;
+    border-radius: 5px;
+  }
+  
+  .recipe_info {
+    margin-bottom: 10px;
+  }
+  
+  .recipe_info h2 {
+    margin: 0;
+  }
+  
+  .description {
+    margin-bottom: 10px;
+  }
+  
+  .description h3 {
+    margin: 0;
+  }
+  
+  .button_remove {
+    color: rgb(5, 111, 153);
+    text-decoration: underline;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }

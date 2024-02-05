@@ -1,0 +1,11 @@
+
+<h1><%= @recipe.name %></h1>
+<p>Preparation Time: <%= @recipe.preparation_time %> minutes</p>
+<p>Cooking Time: <%= @recipe.cooking_time %> minutes</p>
+<p>Description: <%= @recipe.description %></p>
+<p>Public: <%= @recipe.public ? 'Yes' : 'No' %></p>
+
+<% if @recipe.user == current_user %>
+  <%= link_to "Edit Recipe", edit_recipe_path(@recipe) %>
+  <%= button_to @recipe.public ? "Make Private" : "Make Public", toggle_public_recipe_path(@recipe), method: :patch %>
+<% end %>
