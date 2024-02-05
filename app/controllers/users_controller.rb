@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
-    def create
-      @user = User.create(user_params)
-      @user.foods.create(name: "Apple", deleted: false)
-      @user.foods.create(name: "Pineapple", deleted: false)
-      @user.foods.create(name: "Chicken breats", deleted: false)
-      redirect_to @user
-    end
-  
+  def create
+    @user = User.create(user_params)
+    @user.foods.create(name: 'Apple', deleted: false)
+    @user.foods.create(name: 'Pineapple', deleted: false)
+    @user.foods.create(name: 'Chicken breats', deleted: false)
+    redirect_to @user
+  end
+
   def index
     @users = User.where(id: current_user.id)
   end
