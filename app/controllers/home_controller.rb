@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     if user_signed_in? && !request.path.starts_with?("/users/sign_out")
       redirect_to users_path
     else
-      # Render welcome content
+      @welcome_message = "Welcome to the Recipe App!"
     end
 
   end

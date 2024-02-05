@@ -11,5 +11,6 @@ Rails.application.routes.draw do
   # root "posts#index"
   root to: "home#index"
   resources :users, only: [:index]
+patch 'update_name', to: 'users#update_name', as: 'update_name'
 
 end
