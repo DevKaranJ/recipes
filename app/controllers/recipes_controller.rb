@@ -13,7 +13,7 @@ class RecipesController < ApplicationController
   def toggle_public
     @recipe = current_user.recipes.find(params[:id])
     @recipe.update(public: !@recipe.public)
-    redirect_to @recipe, notice: "Recipe visibility updated successfully"
+    redirect_to @recipe, notice: 'Recipe visibility updated successfully'
   end
 
   def new
@@ -24,7 +24,7 @@ class RecipesController < ApplicationController
     @recipe = current_user.recipes.build(recipe_params)
 
     if @recipe.save
-      redirect_to user_recipe_path(@user, @recipe), notice: "Recipe was successfully created."
+      redirect_to user_recipe_path(@user, @recipe), notice: 'Recipe was successfully created.'
     else
       render :new
     end
@@ -33,9 +33,9 @@ class RecipesController < ApplicationController
   def destroy
     @recipe = current_user.recipes.find(params[:id])
     @recipe.destroy
-    redirect_to user_recipes_path(@user), notice: "Recipe was successfully deleted."
+    redirect_to user_recipes_path(@user), notice: 'Recipe was successfully deleted.'
   end
-  
+
   private
 
   def set_user
