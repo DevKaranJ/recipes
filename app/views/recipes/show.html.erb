@@ -8,8 +8,8 @@
     <p>Description: <%= @recipe.description %></p>
     <p>Public: <%= @recipe.public ? 'Yes' : 'No' %></p>
     <% if @recipe.user == current_user %>
-      <%= link_to "Edit Recipe", edit_user_recipe_path(@recipe.user, @recipe), class: "button" %>
-      <%= button_to @recipe.public ? "Make Private" : "Make Public", toggle_public_recipe_path(@recipe), method: :patch, class: "button" %>
+      <%= link_to "Generate Shopping List (Coming Soon)", "#", class: "btn btn-primary disabled" %>
+      <%= link_to "Add Ingredients ", "#", class: "btn btn-primary disabled" %>
     <% end %>
   </div>
 </div>
