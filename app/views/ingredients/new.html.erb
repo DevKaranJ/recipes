@@ -1,20 +1,26 @@
-<%= form_with(model: [@recipe, @ingredient], local: true) do |form| %>
-  <div class="field">
-    <%= form.label :food_name %>
-    <%= form.text_field :food_name %>
-  </div>
+<%= stylesheet_link_tag "edit_ingredients" %>
 
-  <div class="field">
-    <%= form.label :quantity %>
-    <%= form.number_field :quantity %>
-  </div>
+<div class="form-container">
+  <h1>Add Ingredient</h1>
 
-  <div class="field">
-    <%= form.label :value %>
-    <%= form.text_field :value %>
-  </div>
+  <%= form_with(model: [@recipe, @ingredient], local: true) do |form| %>
+    <div class="field">
+      <%= form.label :food_name %>
+      <%= form.text_field :food_name, required: true %>
+    </div>
 
-  <div class="actions">
-    <%= form.submit "Add Ingredient", class: "btn btn-primary" %>
-  </div>
-<% end %>
+    <div class="field">
+      <%= form.label :quantity %>
+      <%= form.text_field :quantity, placeholder: "e.g., 20 kg", required: true %>
+    </div>
+
+    <div class="field">
+      <%= form.label :value %>
+      <%= form.text_field :value, placeholder: "e.g., $25", required: true %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "Add Ingredient", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

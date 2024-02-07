@@ -1,35 +1,39 @@
-<h1>Edit Ingredient</h1>
+<%= stylesheet_link_tag "edit_ingredients" %>
 
-<%= form_with(model: [@recipe, @ingredient], local: true) do |form| %>
-  <% if @ingredient.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@ingredient.errors.count, "error") %> prohibited this ingredient from being saved:</h2>
-      <ul>
-      <% @ingredient.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="form-container">
+  <h1>Edit Ingredient</h1>
+
+  <%= form_with(model: [@recipe, @ingredient], local: true) do |form| %>
+    <% if @ingredient.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@ingredient.errors.count, "error") %> prohibited this ingredient from being saved:</h2>
+        <ul>
+          <% @ingredient.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :food_name %>
+      <%= form.text_field :food_name %>
+    </div>
+
+    <div class="field">
+      <%= form.label :quantity %>
+      <%= form.number_field :quantity %>
+    </div>
+
+    <div class="field">
+      <%= form.label :value %>
+      <%= form.text_field :value %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit 'Update Ingredient', class: 'btn btn-primary' %>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :food_name %>
-    <%= form.text_field :food_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :quantity %>
-    <%= form.number_field :quantity %>
-  </div>
-
-  <div class="field">
-    <%= form.label :value %>
-    <%= form.text_field :value %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit 'Update Ingredient' %>
-  </div>
-<% end %>
-
-<%= link_to 'Back', user_recipe_path(@recipe.user, @recipe) %>
+  <%= link_to 'Back', user_recipe_path(@recipe.user, @recipe), class: 'back-link' %>
+</div>
