@@ -1,6 +1,6 @@
 class IngredientsController < ApplicationController
   before_action :set_recipe
-  before_action :set_ingredient, only: [:edit, :update, :destroy]
+  before_action :set_ingredient, only: %i[edit update destroy]
 
   def new
     @ingredient = @recipe.ingredients.build
@@ -15,8 +15,7 @@ class IngredientsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @ingredient.update(ingredient_params)

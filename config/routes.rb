@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'public_recipes/index'
   get 'public_recipes/show'
   get 'home/index'
-  devise_for :users
+  devise_for :users, sign_out_via: [:get, :delete]
   get "up" => "rails/health#show", as: :rails_health_check
   root to: "home#index"
 
