@@ -1,0 +1,15 @@
+<h1>Add New Inventory</h1>
+
+<div>
+  <%= form_with(model: @inventory) do |f| %>
+    <div>
+      <%= f.text_field :name, placeholder: "Inventory Name", autofocus: true, required: true %>
+    </div>
+    <div>
+      <%= f.text_field :description, placeholder: "Type here the inventory description", required: true %>
+    </div>
+    <div>
+      <%= f.submit "Add Inventory" %>
+    </div>
+  <% end %>
+<div>

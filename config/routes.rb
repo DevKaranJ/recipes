@@ -13,4 +13,8 @@ Rails.application.routes.draw do
   resources :users, only: [:index]
 patch 'update_name', to: 'users#update_name', as: 'update_name'
 
+resources :inventories, except: [:update] do
+  resources :inventory_foods, only: [:new, :create, :destroy]
+end 
+
 end
