@@ -32,7 +32,10 @@
     <%= form.number_field :cooking_time, step: '0.1' %>
   </div>
 
-  <!-- Add other fields as needed -->
+  <div class="field">
+  <%= form.label :public, "Make Public" %>
+  <%= form.check_box :public %>
+</div>
 
   <div class="actions">
     <%= form.submit 'Create Recipe' %>
