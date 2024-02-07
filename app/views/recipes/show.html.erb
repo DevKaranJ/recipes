@@ -15,9 +15,12 @@
 
     <h2>Ingredients</h2>
     <ul>
-      <% @recipe.ingredients.each do |ingredient| %>
-        <li><%= ingredient.food_name %> - <%= ingredient.quantity %> <%= ingredient.value %></li>
-      <% end %>
+    <% @recipe.ingredients.each do |ingredient| %>
+      <p><%= ingredient.food_name %> - <%= ingredient.quantity %> <%= ingredient.value %></p>
+      <%= link_to "Edit", edit_recipe_ingredient_path(@recipe, ingredient), class: "btn btn-primary" %>
+      <%= button_to "Delete", recipe_ingredient_path(@recipe, ingredient), method: :delete, data: { confirm: "Are you sure you want to delete this ingredient?" }, class: "btn btn-danger" %>
+    <% end %>
+
     </ul>
   </div>
 </div>
