@@ -8,6 +8,7 @@ class RecipesController < ApplicationController
 
   def show
     @recipe = current_user.recipes.find(params[:id])
+    @recipe = Recipe.includes(:ingredients).find(params[:id])
   end
 
   def toggle_public
