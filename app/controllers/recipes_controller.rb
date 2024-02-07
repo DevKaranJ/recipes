@@ -33,7 +33,7 @@ class RecipesController < ApplicationController
     RecipeFood.where(recipe_id: @recipe.id).destroy_all
     @recipe.destroy
 
-    redirect_to user_recipes_path(current_user), notice: 'Recipe successfully deleted'
+    redirect_to request.reference, notice: 'Recipe successfully deleted'
   end
 
   def update
@@ -59,7 +59,6 @@ class RecipesController < ApplicationController
     }
     @missing_foods = missing_foods
   end
-
 
   private
 
