@@ -1,2 +1,5 @@
-<h1>PublicRecipes#show</h1>
-<p>Find me in app/views/public_recipes/show.html.erb</p>
+<!-- app/views/public_recipes/show.html.erb -->
+<h1><%= @recipe.name %></h1>
+<p><%= @recipe.description %></p>
+<p>Preparation Time: <%= @recipe.preparation_time %> minutes</p>
+<p>Cooking Time: <%= @recipe.cooking_time %> minutes</p>
