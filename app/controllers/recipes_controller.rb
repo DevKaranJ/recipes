@@ -1,7 +1,4 @@
 class RecipesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_user
-
   def index
     @user = User.find(params[:user_id])
     @recipes = @user.recipes
@@ -23,17 +20,17 @@ class RecipesController < ApplicationController
     if @recipe.save
       redirect_to user_recipes_path(current_user)
     else
-      put @recipe.errors.full_messages
+      puts @recipe.errors.full_messages
       render :new
     end
   end
 
   def destroy
-    @recipe = current_user.recipes.includes(recipe_params).find(params[:id])
+    @recipe = current_user.recipes.includes(:recipe_foods).find(params[:id])
     RecipeFood.where(recipe_id: @recipe.id).destroy_all
     @recipe.destroy
 
-    redirect_to request.reference, notice: 'Recipe successfully deleted'
+    redirect_to request.referrer, notice: 'Recipe was successfully destroyed.'
   end
 
   def update
@@ -41,7 +38,7 @@ class RecipesController < ApplicationController
     @recipe = @user.recipes.find(params[:id])
 
     if @recipe.update(recipe_params)
-      redirect_to user_recipes_path(@user, @recipe).notice = 'Recipe successfully updated'
+      redirect_to user_recipe_path(@user, @recipe), notice: 'Recipe was successfully updated.'
     else
       render :show
     end
@@ -63,6 +60,6 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:name, :preparation_time, :cooking_time, :description, :public)
+    params.require(:recipe).permit(:name, :description, :preparation_time, :cooking_time, :public)
   end
 end

@@ -12,9 +12,10 @@ Rails.application.routes.draw do
   # root "posts#index"
   root to: "home#index"
 
+  patch 'update_name', to: 'users#update_name', as: 'update_name'
+  
   resources :users, only: [:index] do
     resources :recipes, only: [:index, :show, :new, :create, :edit, :update, :destroy]
-    patch 'update_name', to: 'users#update_name', as: 'update_name'
   end
 
   resources :recipes, only: [] do
