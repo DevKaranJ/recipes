@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'public_recipes/index'
+  get 'public_recipes/show'
   get 'home/index'
   devise_for :users
   get "up" => "rails/health#show", as: :rails_health_check
@@ -14,9 +16,6 @@ Rails.application.routes.draw do
     patch 'toggle_public', on: :member
   end
 
-  resources :public_recipes, only: [:index, :show, :destroy] do
-    member do
-      delete 'destroy_public_recipe', as: 'destroy_public'
+  resources :public_recipes, only: [:index, :show,]
     end
-  end
-end
+
