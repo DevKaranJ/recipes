@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'public_recipes/index'
   get 'public_recipes/show'
+  get '/food_list', to: 'foods#index', as: 'food_list'
   get 'home/index'
   devise_for :users
   get "up" => "rails/health#show", as: :rails_health_check
@@ -8,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index] do
     resources :recipes, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+    resources :foods
     patch 'update_name', to: 'users#update_name', as: 'update_name'
   end
 
@@ -18,4 +20,3 @@ Rails.application.routes.draw do
 
   resources :public_recipes, only: [:index, :show,]
     end
-
