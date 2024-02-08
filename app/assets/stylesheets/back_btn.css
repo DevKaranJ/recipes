@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .container h1 {
+    font-size: 2em;
+    margin: 20px 0;
+    font-weight: 800;
+  }
+  
+  .container a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    color: #495057;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    font-weight: 700;
+  }
+  
+  .container a:hover {
+    background-color: #e9ecef;
+  }
