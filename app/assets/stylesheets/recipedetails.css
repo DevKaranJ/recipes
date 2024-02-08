@@ -38,7 +38,8 @@
   border-collapse: collapse;
 }
 
-.container .ingredients-table th, .container .ingredients-table td {
+.container .ingredients-table th,
+.container .ingredients-table td {
   border: 1px solid #ddd;
   padding: 8px;
 }
@@ -66,7 +67,7 @@
   background-color: #0056b3;
 }
 
-.container .btn-danger{
+.container .btn-danger {
   background-color: #dc3545;
   color: #fff;
   margin-bottom: 5px;
