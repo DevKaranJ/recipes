@@ -13,8 +13,19 @@ Rails.application.routes.draw do
   resources :users, only: [:index]
 patch 'update_name', to: 'users#update_name', as: 'update_name'
 
-resources :inventories, except: [:update] do
-  resources :inventory_foods, only: [:new, :create, :destroy]
-end 
+  resources :users, only: [:index] do
+    resources :recipes, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+    resources :foods
+    resources :inventories
+    patch 'update_name', to: 'users#update_name', as: 'update_name'
+  end
 
+  resources :inventory_foods
+
+  resources :recipes, only: [] do
+    resources :ingredients, only: [:new, :create, :edit, :update, :destroy]
+    patch 'toggle_public', on: :member
+  end
+
+  resources :public_recipes, only: [:index, :show]
 end
