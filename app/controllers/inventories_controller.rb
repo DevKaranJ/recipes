@@ -1,7 +1,7 @@
 class InventoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
-  before_action :set_inventory, only: [:show, :destroy]
+  before_action :set_inventory, only: %i[show destroy]
 
   # GET /users/:user_id/inventories
   def index
@@ -27,7 +27,6 @@ class InventoriesController < ApplicationController
       render :new
     end
   end
-
 
   # DELETE /users/:user_id/inventories/:id
   def destroy
