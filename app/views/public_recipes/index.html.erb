@@ -1,0 +1,16 @@
+<%= stylesheet_link_tag "public_recipes" %>
+<h1>Public Recipes</h1>
+
+<% @public_recipes.each do |recipe| %>
+  <div class="recipe-item">
+    <%= link_to "#{recipe.name} by #{recipe.user.name}", public_recipe_path(recipe) %><br>
+    <% total_quantity = 0 %>
+    <% total_value = 0 %>
+    <% recipe.ingredients.each do |ingredient| %>
+      <% total_quantity += ingredient.quantity.to_i %>
+      <% total_value += ingredient.value.to_i %>
+    <% end %>
+    <p>Total Quantity: <%= total_quantity %></p>
+    <p>Total Value: <%= total_value %></p>
+  </div>
+<% end %>

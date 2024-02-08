@@ -1,109 +1,79 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
   padding: 20px;
-  margin: 20px;
 }
 
-.details {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 20px;
-  margin: 20px;
-  gap: 10px;
-}
-
-.button {
-  color: white;
-  background-color: #2196f3;
-  border: none;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin-top: 10px;
-  cursor: pointer;
-}
-
-.button:hover {
-  background-color: #0b7dda;
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 34px;
-}
-
-.slider::before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: #2196f3;
-}
-
-input:checked + .slider::before {
-  transform: translateX(26px);
-}
-
-#visibility-label {
-  margin-left: 10px;
-}
-
-h1 {
-  text-align: center;
-}
-
-h2 {
-  text-align: center;
-}
-
-div {
+.container h1 {
+  font-size: 2em;
   margin-bottom: 20px;
 }
 
-p {
-  font-size: 20px;
-  font-weight: 700;
+.container h1:hover {
+  opacity: 0.5;
 }
 
-a {
-  color: skyblue;
-  text-decoration: underline;
-  margin-right: 10px;
+.container h2 {
+  margin: 10px 0;
+  font-size: 18px;
 }
 
-a:hover {
-  color: blue;
+.container h2:hover {
+  opacity: 0.5;
+}
+
+.container .details p {
+  margin-bottom: 10px;
+}
+
+.container .button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.container .ingredients-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.container .ingredients-table th,
+.container .ingredients-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.container .ingredients-table th {
+  background-color: #f2f2f2;
+  color: black;
+}
+
+/* Style the buttons */
+.container .btn {
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.container .btn-primary {
+  display: flex;
+  justify-content: center;
+  background-color: #007bff;
+  color: #fff;
+}
+
+.container .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.container .btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  margin-bottom: 5px;
+  border-style: none;
+}
+
+.container .btn-danger:hover {
+  background-color: #c82333;
 }
