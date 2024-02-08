@@ -1,37 +1,49 @@
 class InventoriesController < ApplicationController
-  load_and_authorize_resource
+  before_action :authenticate_user!
+  before_action :set_user
+  before_action :set_inventory, only: [:show, :destroy]
 
+  # GET /users/:user_id/inventories
   def index
-    @inventories = Inventory.all
+    @inventories = @user.inventories
   end
 
+  # GET /users/:user_id/inventories/:id
+  def show
+    @food = current_user.foods.find(params[:id])
+  end
+
+  # GET /users/:user_id/inventories/new
   def new
-    @inventory = Inventory.new
+    @inventory = @user.inventories.build
   end
 
+  # POST /users/:user_id/inventories
   def create
-    @inventory = current_user.inventories.new(inventory_params)
-
-    respond_to do |format|
-      if @inventory.save
-        format.html { redirect_to inventories_path, notice: 'Inventory was successfully created.' }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-      end
+    @inventory = @user.inventories.build(inventory_params)
+    if @inventory.save
+      redirect_to user_inventories_path(@user), notice: 'Inventory was successfully created.'
+    else
+      render :new
     end
   end
 
-  def destroy
-    @inventory = Inventory.find(params[:id])
-    authorize! :destroy, @inventory
-    @inventory.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to inventories_url, notice: 'Inventory was successfully deleted.' }
-    end
+  # DELETE /users/:user_id/inventories/:id
+  def destroy
+    @inventory.destroy
+    redirect_to user_inventories_path(@user), notice: 'Inventory was successfully destroyed.'
   end
 
   private
+
+  def set_user
+    @user = User.find(params[:user_id])
+  end
+
+  def set_inventory
+    @inventory = @user.inventories.find(params[:id])
+  end
 
   def inventory_params
     params.require(:inventory).permit(:name, :description)
