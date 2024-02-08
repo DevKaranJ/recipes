@@ -25,15 +25,43 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_08_072857) do
     t.index ["user_id"], name: "index_foods_on_user_id"
   end
 
-  create_table "ingredients", force: :cascade do |t|
-    t.string "food_name"
-    t.float "quantity"
-    t.string "value"
-    t.bigint "recipe_id"
+  create_table "inventories", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "quantity_unit"
-    t.index ["recipe_id"], name: "index_ingredients_on_recipe_id"
+    t.index ["user_id"], name: "index_inventories_on_user_id"
+  end
+
+  create_table "inventory_foods", force: :cascade do |t|
+    t.bigint "quantity"
+    t.bigint "inventory_id", null: false
+    t.bigint "food_id", null: false
+    t.integer "user"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["food_id"], name: "index_inventory_foods_on_food_id"
+    t.index ["inventory_id"], name: "index_inventory_foods_on_inventory_id"
+  end
+
+  create_table "inventories", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "description"
+    t.index ["user_id"], name: "index_inventories_on_user_id"
+  end
+
+  create_table "inventory_foods", force: :cascade do |t|
+    t.integer "quantity"
+    t.bigint "inventory_id", null: false
+    t.bigint "food_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["food_id"], name: "index_inventory_foods_on_food_id"
+    t.index ["inventory_id"], name: "index_inventory_foods_on_inventory_id"
   end
 
   create_table "recipe_foods", force: :cascade do |t|
