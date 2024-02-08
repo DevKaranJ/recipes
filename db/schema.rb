@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_05_150806) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_08_072857) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,45 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_05_150806) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_foods_on_user_id"
+  end
+
+  create_table "inventories", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_inventories_on_user_id"
+  end
+
+  create_table "inventory_foods", force: :cascade do |t|
+    t.bigint "quantity"
+    t.bigint "inventory_id", null: false
+    t.bigint "food_id", null: false
+    t.integer "user"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["food_id"], name: "index_inventory_foods_on_food_id"
+    t.index ["inventory_id"], name: "index_inventory_foods_on_inventory_id"
+  end
+
+  create_table "inventories", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "description"
+    t.index ["user_id"], name: "index_inventories_on_user_id"
+  end
+
+  create_table "inventory_foods", force: :cascade do |t|
+    t.integer "quantity"
+    t.bigint "inventory_id", null: false
+    t.bigint "food_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["food_id"], name: "index_inventory_foods_on_food_id"
+    t.index ["inventory_id"], name: "index_inventory_foods_on_inventory_id"
   end
 
   create_table "recipe_foods", force: :cascade do |t|
@@ -47,12 +86,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_05_150806) do
     t.index ["user_id"], name: "index_recipes_on_user_id"
   end
 
-  create_table "shopping_lists", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -67,6 +100,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_05_150806) do
   end
 
   add_foreign_key "foods", "users"
+  add_foreign_key "ingredients", "recipes"
   add_foreign_key "recipe_foods", "foods"
   add_foreign_key "recipe_foods", "recipes"
   add_foreign_key "recipes", "users"

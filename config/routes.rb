@@ -9,14 +9,17 @@ get '/food_list', to: 'foods#index', as: 'food_list'
 
   resources :users, only: [:index] do
     resources :recipes, only: [:index, :show, :new, :create, :edit, :update, :destroy]
-resources :foods
+    resources :foods
+    resources :inventories
     patch 'update_name', to: 'users#update_name', as: 'update_name'
   end
+
+  resources :inventory_foods
 
   resources :recipes, only: [] do
     resources :ingredients, only: [:new, :create, :edit, :update, :destroy]
     patch 'toggle_public', on: :member
   end
 
-  resources :public_recipes, only: [:index, :show,]
-    end
+  resources :public_recipes, only: [:index, :show]
+end
