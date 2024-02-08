@@ -23,6 +23,13 @@
     <% end %>
   <% end %>
 
+  <div>
+    <%= link_to "My Recipes", user_recipes_path(current_user) %>
+  </div>
+
+  <%= link_to "New Recipe", new_user_recipe_path(current_user), class: "button" %>
+
+<%= link_to 'Add New Food', new_user_food_path(current_user) %>
   <%= form_tag destroy_user_session_path, method: :delete do %>
     <%= submit_tag "Sign out" %>
   <% end %>
