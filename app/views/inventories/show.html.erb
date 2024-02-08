@@ -1,6 +1,37 @@
 <div class="container">
   <h1>Inventory Details</h1>
+  <div class="inventory_container">
+    <div class="inventory_info">
+      <h2><%= @inventory.name %></h2>
+    </div>
+  </div>
 
+  <%= link_to 'Add New Food', new_inventory_food_path(@inventory) %>
+
+  <h2>Your Food List</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Measurement Unit</th>
+        <th>Price</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @foods.each do |food| %>
+        <tr>
+          <td><%= food.name %></td>
+          <td><%= food.measurement_unit %></td>
+          <td><%= food.price %></td>
+          <td>
+            <!-- Add any actions you want to perform on the food, such as editing or deleting -->
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
   <%= link_to 'Back to Inventories List', user_inventories_path(@user) %>
 </div>

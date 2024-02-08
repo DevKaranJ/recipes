@@ -14,7 +14,9 @@ Rails.application.routes.draw do
     patch 'update_name', to: 'users#update_name', as: 'update_name'
   end
 
-  resources :inventory_foods
+  resources :inventories do
+    resources :foods, only: [:index, :new, :create]
+  end
 
   resources :recipes, only: [] do
     resources :ingredients, only: [:new, :create, :edit, :update, :destroy]

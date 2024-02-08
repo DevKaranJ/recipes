@@ -10,8 +10,10 @@ class InventoriesController < ApplicationController
 
   # GET /users/:user_id/inventories/:id
   def show
-
+    @inventory = Inventory.find(params[:id])
+    @foods = @inventory.foods
   end
+
 
   # GET /users/:user_id/inventories/new
   def new
@@ -22,7 +24,7 @@ class InventoriesController < ApplicationController
   def create
     @inventory = @user.inventories.build(inventory_params)
     if @inventory.save
-      redirect_to user_inventories_path(@user), notice: 'Inventory was successfully created.'
+      redirect_to user_inventory_path(@user, @inventory), notice: 'Inventory was successfully created.'
     else
       render :new
     end
