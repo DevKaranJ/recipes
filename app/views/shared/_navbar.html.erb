@@ -6,6 +6,7 @@
     <% if user_signed_in? %>
       <li><%= link_to 'My Recipes', user_recipes_path(current_user) %></li>
       <li><%= link_to 'My Profile', users_path %></li>
+<li><%= link_to 'Food List', user_foods_path(current_user) %></li>
       <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
     <% else %>
       <li><%= link_to 'Login', new_user_session_path %></li>
