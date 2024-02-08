@@ -1,8 +1,13 @@
 class FoodsController < ApplicationController
   before_action :authenticate_user!
 
+  def show
+    @food = current_user.foods.find(params[:id])
+  end
+
   def index
     @foods = current_user.foods
+    @user = current_user
   end
 
   def new
