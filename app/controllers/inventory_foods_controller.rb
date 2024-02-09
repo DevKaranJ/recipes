@@ -3,6 +3,11 @@ class InventoryFoodsController < ApplicationController
   before_action :set_user
   before_action :set_inventory
 
+  def new
+    @inventory_food = @inventory.inventory_foods.new
+    render 'add_food'
+  end
+
   def create
     @inventory = Inventory.find(params[:inventory_id])
     @user = @inventory.user

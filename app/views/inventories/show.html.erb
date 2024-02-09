@@ -13,33 +13,6 @@
   </div>
 
   <%= link_to 'Back to Inventories List', user_inventories_path(@user) %>
-
-  <div class="add_food_form">
-    <%= form_with(model: [@user, @inventory, @inventory_food], url: user_inventory_inventory_foods_path(@user, @inventory)) do |form| %>
-      <% if @inventory_food.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@inventory_food.errors.count, "error") %> prohibited this food from being added to the inventory:</h2>
-          <ul>
-            <% @inventory_food.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <div class="field">
-        <%= form.label :food_name %>
-        <%= form.text_field :food_name %>
-      </div>
-
-      <div class="field">
-        <%= form.label :quantity %>
-        <%= form.number_field :quantity %>
-      </div>
-
-      <div class="actions">
-        <%= form.submit 'Add Food to Inventory' %>
-      </div>
-    <% end %>
-  </div>
+  <h2>Add Food to Inventory</h2>
+  <%= link_to 'Add Food', new_user_inventory_inventory_food_path(@user, @inventory), class: 'button' %>
 </div>
