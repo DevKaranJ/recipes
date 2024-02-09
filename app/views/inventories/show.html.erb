@@ -1,6 +1,32 @@
 <div class="container">
   <h1>Inventory Details</h1>
 
+  <div class="inventory_details">
+    <p><strong>Name:</strong> <%= @inventory.name %></p>
+    <%= link_to 'Add New Food', new_user_food_path(current_user) %>
+  </div>
+
+  <h1>Your Food List</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Measurement Unit</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @inventory.foods.each do |food| %>
+      <tr>
+        <td><%= food.name %></td>
+        <td><%= food.measurement_unit %></td>
+        <td><%= food.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 
   <%= link_to 'Back to Inventories List', user_inventories_path(@user) %>
 </div>

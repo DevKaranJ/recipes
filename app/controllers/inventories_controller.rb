@@ -10,7 +10,7 @@ class InventoriesController < ApplicationController
 
   # GET /users/:user_id/inventories/:id
   def show
-
+    @food = current_user.foods.find(params[:id])
   end
 
   # GET /users/:user_id/inventories/new
