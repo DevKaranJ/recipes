@@ -2,34 +2,48 @@
   font-family: 'Poppins', sans-serif;
   font-size: 15px;
   text-decoration: none;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f2f2f2;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 
 .login-container {
   display: flex;
-  margin: 0 auto;
-  padding: 20px;
+  margin: 50px auto;
+  padding: 40px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  border-radius: 10px;
+  background-color: #fff;
   flex-direction: column;
   align-items: center;
+  width: 30%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .field {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
+  width: 100%;
 }
 
 .field label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 .field input[type="email"],
 .field input[type="password"] {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 3px;
+  border-radius: 5px;
 }
 
 .field input[type="checkbox"] {
@@ -43,10 +57,13 @@
 .actions input[type="submit"] {
   padding: 10px 20px;
   border: none;
-  border-radius: 3px;
+  border-radius: 5px;
   background-color: #007bff;
   color: #fff;
   cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
 }
 
 .actions input[type="submit"]:hover {
