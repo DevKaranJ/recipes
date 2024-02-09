@@ -17,7 +17,7 @@ class InventoryFoodsController < ApplicationController
     # find or create a Food object with the given food_name
     food = @user.foods.find_by(name: food_name) || @user.foods.create(name: food_name)
 
-    @inventory_food = @inventory.inventory_foods.new(food: food, quantity: quantity)
+    @inventory_food = @inventory.inventory_foods.new(food:, quantity:)
 
     respond_to do |format|
       if @inventory_food.save
@@ -34,7 +34,9 @@ class InventoryFoodsController < ApplicationController
     @inventory_food = @inventory.inventory_foods.find(params[:id])
     @inventory_food.destroy
     respond_to do |format|
-      format.html { redirect_to user_inventory_path(@user, @inventory), notice: 'Food was successfully removed from inventory.' }
+      format.html do
+        redirect_to user_inventory_path(@user, @inventory), notice: 'Food was successfully removed from inventory.'
+      end
       format.json { head :no_content }
     end
   end

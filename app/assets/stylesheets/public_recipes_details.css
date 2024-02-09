@@ -28,19 +28,18 @@ h2 {
   margin-bottom: 20px;
 }
 
- .ingredients-table {
+.ingredients-table {
   width: 100%;
   border-collapse: collapse;
 }
 
- .ingredients-table th,
+.ingredients-table th,
 .ingredients-table td {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
- .ingredients-table th {
+.ingredients-table th {
   background-color: #f2f2f2;
   color: black;
 }
-
