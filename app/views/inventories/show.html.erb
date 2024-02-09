@@ -3,30 +3,43 @@
 
   <div class="inventory_details">
     <p><strong>Name:</strong> <%= @inventory.name %></p>
-    <%= link_to 'Add New Food', new_user_food_path(current_user) %>
+
+    <h2>Added Foods:</h2>
+    <ul>
+      <% @inventory.foods.each do |food| %>
+        <li><%= food.name %> - Quantity: <%= food.inventory_foods.find_by(inventory_id: @inventory.id).quantity %></li>
+      <% end %>
+    </ul>
   </div>
 
-  <h1>Your Food List</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Measurement Unit</th>
-      <th>Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @inventory.foods.each do |food| %>
-      <tr>
-        <td><%= food.name %></td>
-        <td><%= food.measurement_unit %></td>
-        <td><%= food.price %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-
   <%= link_to 'Back to Inventories List', user_inventories_path(@user) %>
+
+  <div class="add_food_form">
+    <%= form_with(model: [@user, @inventory, @inventory_food], url: user_inventory_inventory_foods_path(@user, @inventory)) do |form| %>
+      <% if @inventory_food.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@inventory_food.errors.count, "error") %> prohibited this food from being added to the inventory:</h2>
+          <ul>
+            <% @inventory_food.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= form.label :food_name %>
+        <%= form.text_field :food_name %>
+      </div>
+
+      <div class="field">
+        <%= form.label :quantity %>
+        <%= form.number_field :quantity %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit 'Add Food to Inventory' %>
+      </div>
+    <% end %>
+  </div>
 </div>

@@ -2,6 +2,7 @@ class InventoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
   before_action :set_inventory, only: %i[show destroy]
+  before_action :initialize_inventory_food, only: [:show]
 
   # GET /users/:user_id/inventories
   def index
@@ -11,7 +12,12 @@ class InventoriesController < ApplicationController
   # GET /users/:user_id/inventories/:id
   def show
     @food = current_user.foods.find(params[:id])
+    @inventory_food = InventoryFood.new # Initialize @inventory_food here
+    if params[:new_food].present?
+      @inventory_food = InventoryFood.new
+    end
   end
+
 
   # GET /users/:user_id/inventories/new
   def new
@@ -42,6 +48,10 @@ class InventoriesController < ApplicationController
 
   def set_inventory
     @inventory = @user.inventories.find(params[:id])
+  end
+
+  def initialize_inventory_food
+    @inventory_food = nil
   end
 
   def inventory_params
