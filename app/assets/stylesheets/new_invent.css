@@ -13,7 +13,7 @@ form {
 
 form div {
   margin-bottom: 20px;
-  width: 50%; /* moved from input and textarea */
+  width: 50%;
 }
 
 form label {
@@ -23,7 +23,7 @@ form label {
 
 form input[type="text"],
 form textarea {
-  width: 100%; /* changed from 50% to 100% */
+  width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
