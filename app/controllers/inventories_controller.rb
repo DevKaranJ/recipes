@@ -9,15 +9,11 @@ class InventoriesController < ApplicationController
     @inventories = @user.inventories
   end
 
-  # GET /users/:user_id/inventories/:id
   def show
-    @food = current_user.foods.find(params[:id])
-    @inventory_food = InventoryFood.new # Initialize @inventory_food here
-    if params[:new_food].present?
-      @inventory_food = InventoryFood.new
-    end
+    @user = User.find(params[:user_id])
+    @inventory = @user.inventories.find(params[:id])
+    @inventory_food = @inventory.inventory_foods.new
   end
-
 
   # GET /users/:user_id/inventories/new
   def new
