@@ -6,8 +6,15 @@
 
     <h2>Added Foods:</h2>
     <ul>
-      <% @inventory.foods.each do |food| %>
-        <li><%= food.name %> - Quantity: <%= food.inventory_foods.find_by(inventory_id: @inventory.id).quantity %></li>
+      <% @inventory.inventory_foods.each do |inventory_food| %>
+        <li>
+          <% if inventory_food.food.present? %>
+            <%= inventory_food.food.name %> - Quantity: <%= inventory_food.quantity %>
+            <%= button_to 'Remove', user_inventory_inventory_food_path(@user, @inventory, inventory_food), method: :delete, data: { confirm: 'Are you sure?' }, class: 'button' %>
+          <% else %>
+            No food information available
+          <% end %>
+        </li>
       <% end %>
     </ul>
   </div>

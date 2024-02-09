@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources :foods
     patch 'update_name', to: 'users#update_name', as: 'update_name'
     resources :inventories do
-      resources :inventory_foods, only: [:new, :create]
+      resources :inventory_foods, only: [:new, :create, :destroy]
     end
   end
 

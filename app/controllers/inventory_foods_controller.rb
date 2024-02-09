@@ -30,7 +30,14 @@ class InventoryFoodsController < ApplicationController
     end
   end
 
-
+  def destroy
+    @inventory_food = @inventory.inventory_foods.find(params[:id])
+    @inventory_food.destroy
+    respond_to do |format|
+      format.html { redirect_to user_inventory_path(@user, @inventory), notice: 'Food was successfully removed from inventory.' }
+      format.json { head :no_content }
+    end
+  end
 
   private
 
