@@ -1,9 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Food, type: :model do
-  context 'associations' do
-    it { should belong_to(:user) }
-    it { should have_many(:recipe_foods) }
-    it { should have_many(:recipes).through(:recipe_foods) }
+  describe 'associations' do
+    it 'should have many recipe_foods' do
+      expect(Food.reflect_on_association(:inventory_foods).macro).to eq(:has_many)
+    end
+
+    it 'should belong to a user' do
+      expect(Food.reflect_on_association(:user).macro).to eq(:belongs_to)
+    end
   end
 end

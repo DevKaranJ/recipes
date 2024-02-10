@@ -1,8 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe RecipeFood, type: :model do
-  context 'associations' do
-    it { is_expected.to belong_to(:recipe) }
-    it { is_expected.to belong_to(:food) }
+  describe 'associations' do
+    it 'should belong to recipe' do
+      expect(RecipeFood.reflect_on_association(:recipe).macro).to eq(:belongs_to)
+    end
+
+    it 'should belong to food' do
+      expect(RecipeFood.reflect_on_association(:food).macro).to eq(:belongs_to)
+    end
   end
 end
