@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Food, type: :model do
-
   describe 'validations' do
     it 'is valid with valid attributes' do
       user = User.create(email: 'sadaf@example.com', password: 'password')
@@ -12,7 +11,7 @@ RSpec.describe Food, type: :model do
         quantity: 100,
         user:
       )
-      
+
       expect(food).to be_valid
     end
 
