@@ -8,9 +8,9 @@
     <% total_value = 0 %>
     <% recipe.ingredients.each do |ingredient| %>
       <% total_quantity += ingredient.quantity.to_i %>
-      <% total_value += ingredient.value.to_i %>
+      <% total_value += ingredient.value.to_i %> <!-- Ensure ingredient value is converted to integer -->
     <% end %>
-    <p>Total Quantity: <%= total_quantity %></p>
-    <p>Total Value: <%= total_value %></p>
+    <p>Total Ingredients Count: <%= recipe.ingredients.count %></p>
+    <p>Total Value: <%= total_quantity %></p>
   </div>
 <% end %>
