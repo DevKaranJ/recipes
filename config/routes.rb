@@ -1,42 +1,35 @@
 Rails.application.routes.draw do
-  get 'public_recipes/index'
-  get 'public_recipes/show'
-  get 'home/index'
-  devise_for :users, sign_out_via: [:get, :delete]
-  get '/food_list', to: 'foods#index', as: 'food_list'
-  get "up" => "rails/health#show", as: :rails_health_check
-  root to: "home#index"
+  devise_for :users
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  resources :users, only: [:index] do
-    resources :recipes, only: [:index, :show, :new, :create, :edit, :update, :destroy]
-    resources :foods
-    patch 'update_name', to: 'users#update_name', as: 'update_name'
-    resources :inventories do
-      resources :inventory_foods, only: [:new, :create, :destroy]
+  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
+  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # get "up" => "rails/health#show", as: :rails_health_check
+
+  # Defines the root path route ("/")
+
+  devise_scope :user do
+    authenticated :user do
+      root :to => "foods#index", as: :authenticated_root
+      get '/users/sign_out' => 'devise/sessions#destroy'
+    end
+    unauthenticated :user do
+      root :to => "devise/sessions#new", as: :unauthenticated_root
     end
   end
 
-  resources :recipes, only: [] do
-    resources :ingredients, only: [:new, :create, :edit, :update, :destroy]
-    patch 'toggle_public', on: :member
+  resources :users, only: [:index]
+  resources :foods, except: [:update]
+  resources :public_recipes,except: [:update]
+  resources :shopping_lists, except: [:update]
+
+  resources :recipes do
+    resources :recipe_foods, only: [:create, :destroy]
   end
 
-  resources :users do
-    resources :recipes do
-      resources :recipe_foods, only: [:new]
-    end
-  end
+  resources :inventories, except: [:update] do
+    resources :inventory_foods, only: [:new, :create, :destroy]
+  end 
 
-  resources :users do
-    resources :recipes do
-      resources :recipe_foods, only: [:new, :create, :destroy]
-    end
-  end
-
-  resources :public_recipes, only: [:index, :show]
-  resources :users do
-    resources :recipes do
-      get 'shopping_list', on: :member
-    end
-  end
+  get 'shopping_lists/index'
 end

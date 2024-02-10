@@ -1,24 +1,26 @@
-<%= stylesheet_link_tag "recipes" %>
+<section class="hero">
+  <h1>Recipe List</h1>
+  <%= link_to 'Add Recipe', new_recipe_path %>
 
-<div class="container">
-  <h1>Recipes 🍲</h1>
-  <table class="recipe_container">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @recipes.each do |recipe| %>
-        <tr>
-          <td><%= link_to recipe.name, user_recipe_path(@user, recipe) %></td>
-          <td><%= truncate(recipe.description, length: 30) %></td>
-          <td><%= button_to "Remove", user_recipe_path(@user, recipe), method: :delete %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-<%= link_to 'New Recipe', new_user_recipe_path(@user), class:"btn" %>
+  <% if @recipes.empty? %>
+    <p>No recipes yet. Please add a recipe.</p>
+  <% else %>
+  <div> 
+    <ul class="recipe-list">
+      <% @recipes.each do |rcp| %>
+        <%= link_to recipe_path(rcp.id) do %>
+          <li>
+            <div class="recipe-item">
+              <h3><%= rcp.name %></h3>
+              <% if can? :destroy, rcp %>
+                <%= link_to 'Remove', rcp, data: { turbo_method: :delete, turbo_confirm: 'You are about to delete this recipe! Do you want to continue?' }, type:"button" %>
+              <% end %>
+            </div>
+            <p><%= rcp.description %></p>
+          </li>
+        <% end %>
+      <% end %> 
+    </ul>
+  </div>
+  <% end %>
+</section>

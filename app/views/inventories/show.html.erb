@@ -1,25 +1,61 @@
-<%= stylesheet_link_tag "inventories_details" %>
-<div class="container">
-  <h1>Inventory Details</h1>
-
-  <div class="inventory_details">
-    <p><strong>Name:</strong> <%= @inventory.name %></p>
-
-    <h2>Added Foods:</h2>
-    <ul>
-      <% @inventory.inventory_foods.each do |inventory_food| %>
-        <li>
-          <% if inventory_food.food.present? %>
-            <%= inventory_food.food.name %> - Quantity: <%= inventory_food.quantity %>
-            <%= button_to 'Remove', user_inventory_inventory_food_path(@user, @inventory, inventory_food), method: :delete, data: { confirm: 'Are you sure?' }, class: 'button' %>
-          <% else %>
-            No food information available
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
+<section class="shopping">
+  <div class="hero">
+    <h2><%= @inventory.name %></h2>
+    <% if can? :destroy, @inventory %>
+      <a id="add-food-link">Add Food</a>
+    <% end %>
   </div>
-  <%= link_to 'Back to Inventories List', user_inventories_path(@user) %>
-  <h2>Add Food to Inventory</h2>
-  <%= link_to 'Add Food', new_user_inventory_inventory_food_path(@user, @inventory), class: 'button' %>
+<div>
+<% if @foods.empty? %>
+<p>No food added to the inventory yet.
+<%= @inventory.description %></p>
+<% else %>
 </div>
+<table>
+  <thead>
+    <tr>
+      <th>Food</th>
+      <th>Quantity</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @foods.each do |fd| %>
+      <tr>
+        <td><%= fd.food.food %></td>
+        <td><%= fd.quantity %></td>
+        <td>
+        <% if can? :destroy, fd %>
+          <%= link_to 'Remove', inventory_inventory_food_path(:inventory_id => @inventory.id, :id => fd.id), 
+          data: { turbo_method: :delete, turbo_confirm: 'You are about to delete this inventory food. Do you want to continue?' }, type:"button" %>
+        <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+<div class="inventory-modal" id="popup-modal">
+    <div><span>x</span></div>
+    <div>
+      <h2>Add inventory food</h2>
+      <hr>
+    </div>
+
+    <div>
+      <%= form_with url: inventory_inventory_foods_path(@inventory.id), scope: :inventory_foods do |f| %>
+        <div class="field">
+          <%= f.select :food_id,@foody.collect { |food| [food.food, food.id] }, { :prompt => 'Choose food'}, required: true %>
+        </div>
+
+        <div class="field">
+          <%= f.number_field :quantity, placeholder: "Quantity", required: true %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Add inventory food" %>
+        </div>
+      <% end %>
+    </div>
+</div>
+</section>

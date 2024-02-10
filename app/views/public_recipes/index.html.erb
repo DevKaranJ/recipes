@@ -1,16 +1,25 @@
-<%= stylesheet_link_tag "public_recipes" %>
-<h1>Public Recipes</h1>
-
-<% @public_recipes.each do |recipe| %>
-  <div class="recipe-item">
-    <%= link_to "#{recipe.name} by #{recipe.user.name}", public_recipe_path(recipe) %><br>
-    <% total_quantity = 0 %>
-    <% total_value = 0 %>
-    <% recipe.ingredients.each do |ingredient| %>
-      <% total_quantity += ingredient.quantity.to_i %>
-      <% total_value += ingredient.value.to_i %> <!-- Ensure ingredient value is converted to integer -->
+<section class="hero">
+  <h1>Public recipes list</h1>
+  <% if @recipes.empty? %>
+    <p>No public recipes for the moment!</p>
+  <% else %>
+  <ul>
+    <% @recipes.includes(:user, :recipe_foods).each do |recipe| %>
+      <li class="public-recipe-link">
+        <%= link_to recipe_path(recipe.id) do %>
+          <div class="public-recipe">
+            <div class="recipe-owner">
+              <p><%= recipe.name %></p>
+              <p>by <%= recipe.user.name %></p>
+            </div>
+            <div class="recipe-details">
+              <p>Total food items: <%= recipe.recipe_foods.length %> </p>
+              <p>Total price: $<%= Recipe.calculate_total_amount(recipe) %></p>
+            </div>
+          </div>
+        <% end %>
+      </li>
     <% end %>
-    <p>Total Ingredients Count: <%= recipe.ingredients.count %></p>
-    <p>Total Value: <%= total_quantity %></p>
-  </div>
-<% end %>
+  </ul>
+  <% end %>
+</section>
