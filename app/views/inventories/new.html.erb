@@ -1,18 +1,19 @@
-
-<h1>New Inventory</h1>
-
-<%= form_with(model: [@user, @inventory], url: user_inventories_path(@user), local: true) do |form| %>
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+<section class="auth-forms">
+  <div class="form-box">
+    <div class="left-inventory"></div>
+    <div class="right">
+      <h2>Add New Inventory</h2>
+      <%= form_with(model: @inventory) do |f| %>
+        <div class="field">
+          <%= f.text_field :name, placeholder: "Inventory Name", autofocus: true, required: true %>
+        </div>
+        <div class="field">
+          <%= f.text_area :description, placeholder: "Type here the inventory description", required: true %>
+        </div>
+        <div class="actions">
+          <%= f.submit "Add Inventory" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-
-  <div>
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div>
-    <%= form.submit 'Create Inventory' %>
-  </div>
-<% end %>
+</section>

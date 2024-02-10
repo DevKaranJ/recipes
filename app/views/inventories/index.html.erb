@@ -1,18 +1,27 @@
-<%= stylesheet_link_tag "inventoriesindex" %>
+<section class="hero">
+  <h1>Inventory List</h1>
+  <%= link_to 'Add Inventory', new_inventory_path %>
 
-<div class="container">
-  <h1>Inventories List</h1>
+  <% if @inventories.empty? %>
+    <p>No inventories yet. Please add an inventory.</p>
+  <% else %>
 
-  <% @inventories.each do |inventory| %>
-    <div class="inventory_container">
-      <div class="inventory_info">
-        <h2><%= link_to inventory.name, user_inventory_path(@user, inventory) %></h2>
-        <p><%= button_to "Remove", user_inventory_path(@user, inventory), method: :delete, data: { confirm: 'Are you sure?' }, class: 'button_remove' %></p>
-      </div>
-      <div class="description">
-        <h3><%= inventory.description %></h3>
-      </div>
-    </div>
+    <ul class="inventory">
+      <% @inventories.each do |invt| %>
+        <%= link_to inventory_path(invt.id) do %>
+          <li class="public-recipe">
+            <h3><%= invt.name %></h3>
+            <p><%= invt.description %></p>
+            <div>
+              <% if can? :destroy, invt %>
+                <%= link_to 'Remove', invt, data: { turbo_method: :delete, turbo_confirm: 'You are about to delete this inventory! Do you want to continue?' }, type:"button" %>
+              <% else %>
+                <%= link_to 'View', inventory_path(invt), type:"button" %>
+              <% end %> 
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
   <% end %>
-  <%= link_to 'New Inventory', new_user_inventory_path(@user), class: 'button_add' %>
-</div>
+</section>

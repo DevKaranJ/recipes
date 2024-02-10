@@ -1,54 +1,44 @@
 class InventoriesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_user
-  before_action :set_inventory, only: %i[show destroy]
-  before_action :initialize_inventory_food, only: [:show]
+  load_and_authorize_resource
 
-  # GET /users/:user_id/inventories
   def index
-    @inventories = @user.inventories
+    @inventories = Inventory.all
   end
 
-  def show
-    @user = User.find(params[:user_id])
-    @inventory = @user.inventories.find(params[:id])
-    @inventory_food = @inventory.inventory_foods.new
-  end
-
-  # GET /users/:user_id/inventories/new
   def new
-    @inventory = @user.inventories.build
+    @inventory = Inventory.new
   end
 
-  # POST /users/:user_id/inventories
   def create
-    @inventory = @user.inventories.build(inventory_params)
-    if @inventory.save
-      redirect_to user_inventories_path(@user), notice: 'Inventory was successfully created.'
-    else
-      render :new
+    @inventory = current_user.inventories.new(inventory_params)
+
+    respond_to do |format|
+      if @inventory.save
+        format.html { redirect_to inventories_path, notice: 'Inventory created successfully.' }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
     end
   end
 
-  # DELETE /users/:user_id/inventories/:id
   def destroy
-    @inventory.destroy
-    redirect_to user_inventories_path(@user), notice: 'Inventory was successfully destroyed.'
+    @inventory = Inventory.find(params[:id])
+    authorize! :destroy, @inventory
+    @inventory.destroy!
+
+    respond_to do |format|
+      format.html { redirect_to inventories_url, notice: 'Inventory removed successfully.' }
+    end
+  end
+
+  def show
+    @inventory = Inventory.find(params[:id])
+    @foods = @inventory.inventory_foods.includes(:food)
+    @foody = Food.all
+    @inventory_food = InventoryFood.new
   end
 
   private
-
-  def set_user
-    @user = User.find(params[:user_id])
-  end
-
-  def set_inventory
-    @inventory = @user.inventories.find(params[:id])
-  end
-
-  def initialize_inventory_food
-    @inventory_food = nil
-  end
 
   def inventory_params
     params.require(:inventory).permit(:name, :description)

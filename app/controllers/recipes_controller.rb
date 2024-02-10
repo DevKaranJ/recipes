@@ -1,66 +1,60 @@
 class RecipesController < ApplicationController
-  def index
-    @user = User.find(params[:user_id])
-    @recipes = @user.recipes
-  end
+  before_action :set_recipe, only: %i[show destroy]
 
-  def show
-    @user = User.find(params[:user_id])
-    @recipe = Recipe.includes(:ingredients).find(params[:id])
-    @recipe = @user.recipes.find(params[:id])
-    @recipe_foods = @recipe.recipe_foods.includes(:food)
+  def index
+    @recipes = current_user.recipes
   end
 
   def new
-    @user = current_user
-    @recipe = @user.recipes.build
+    @recipe = Recipe.new
   end
 
   def create
-    @recipe = current_user.recipes.build(recipe_params)
-    if @recipe.save
-      redirect_to user_recipes_path(current_user)
-    else
-      puts @recipe.errors.full_messages
-      render :new
+    @recipe = current_user.recipes.new(recipe_params)
+
+    respond_to do |format|
+      if @recipe.save
+        format.html { redirect_to recipes_url, notice: 'Recipe Added successfully.' }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
-    @recipe = current_user.recipes.includes(:recipe_foods).find(params[:id])
-    RecipeFood.where(recipe_id: @recipe.id).destroy_all
     @recipe.destroy
+    authorize! :destroy, @recipe
 
-    redirect_to request.referrer, notice: 'Recipe was successfully destroyed.'
-  end
-
-  def update
-    @user = User.find(params[:user_id])
-    @recipe = @user.recipes.find(params[:id])
-
-    if @recipe.update(recipe_params)
-      redirect_to user_recipe_path(@user, @recipe), notice: 'Recipe was successfully updated.'
-    else
-      render :show
+    respond_to do |format|
+      format.html { redirect_to recipes_url, notice: 'Recipe removed successfully.' }
     end
   end
 
-  def shopping_list
-    @recipe = Recipe.includes([recipe_foods: [:food]]).find(params[:id])
-    user_foods = current_user.foods
+  def show
+    @foods = current_user.foods
+    @inventories = Inventory.all
+    @recipe = current_user.recipes.includes(:recipe_foods).find(params[:id])
+    @recipes = Recipe.find(params[:id])
+  end
 
-    missing_foods = @recipe.recipe_foods.reject { |recipe_food| user_foods.include?(recipe_food.food) }
-
-    @data = {
-      total_items: missing_foods.size,
-      total_price: missing_foods.sum { |recipe_food| recipe_food.quantity * recipe_food.food.price }
-    }
-    @missing_foods = missing_foods
+  def update
+    @recipe = Recipe.find(params[:id])
+    if @recipe.public
+      @recipe.update(public: false)
+      flash.now[:notice] = 'Status changed to private.'
+    else
+      @recipe.update(public: true)
+      flash.now[:notice] = 'Status changed to public'
+    end
   end
 
   private
 
+  def set_recipe
+    @recipe = Recipe.find(params[:id])
+  end
+
   def recipe_params
-    params.require(:recipe).permit(:name, :description, :preparation_time, :cooking_time, :public)
+    params.require(:recipe).permit(:name, :preparation_time, :cooking_time, :description, :public)
   end
 end
