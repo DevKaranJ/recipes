@@ -21,22 +21,5 @@ Rails.application.routes.draw do
     patch 'toggle_public', on: :member
   end
 
-  resources :users do
-    resources :recipes do
-      resources :recipe_foods, only: [:new]
-    end
-  end
-
-  resources :users do
-    resources :recipes do
-      resources :recipe_foods, only: [:new, :create, :destroy]
-    end
-  end
-
   resources :public_recipes, only: [:index, :show]
-  resources :users do
-    resources :recipes do
-      get 'shopping_list', on: :member
-    end
-  end
 end

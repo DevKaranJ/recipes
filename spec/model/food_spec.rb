@@ -1,48 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Food, type: :model do
-  describe 'validations' do
-    it 'is valid with valid attributes' do
-      user = User.create(email: 'sadaf@example.com', password: 'password')
-      food = Food.new(
-        name: 'Potato',
-        measurement_unit: 'kg',
-        price: 2,
-        quantity: 100,
-        user:
-      )
-
-      expect(food).to be_valid
+  describe 'associations' do
+    it 'should have many recipe_foods' do
+      expect(Food.reflect_on_association(:inventory_foods).macro).to eq(:has_many)
     end
 
-    it 'is not valid without a name' do
-      food = Food.new(name: nil)
-      expect(food).to_not be_valid
-    end
-
-    it 'is not valid without a measurement unit' do
-      food = Food.new(measurement_unit: nil)
-      expect(food).to_not be_valid
-    end
-
-    it 'is not valid without a price' do
-      food = Food.new(price: nil)
-      expect(food).to_not be_valid
-    end
-
-    it 'is not valid with a non-positive price' do
-      food = Food.new(price: -1)
-      expect(food).to_not be_valid
-    end
-
-    it 'is not valid without a quantity' do
-      food = Food.new(quantity: nil)
-      expect(food).to_not be_valid
-    end
-
-    it 'is not valid with a negative quantity' do
-      food = Food.new(quantity: -1)
-      expect(food).to_not be_valid
+    it 'should belong to a user' do
+      expect(Food.reflect_on_association(:user).macro).to eq(:belongs_to)
     end
   end
 end

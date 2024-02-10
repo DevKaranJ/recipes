@@ -10,7 +10,6 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
-  margin-top: 20px;
 }
 
 .field {
@@ -67,11 +66,4 @@
 
 .edit-user-container .cancel-button:hover {
   background-color: #c82333;
-}
-
-.btn {
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 5px;
-  border-color: #007bff;
 }
