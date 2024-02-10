@@ -75,7 +75,7 @@ h2::after {
   height: 4px;
   width: 50px;
   border-radius: 2px;
-  background-color: #4758f0;
+  background-color: #2f303b;
 }
 
 .field input {
@@ -104,7 +104,7 @@ h2::after {
 .actions input[type="submit"] {
   width: 100%;
   padding: 0.5rem 1rem;
-  background-color: #4758f0;
+  background-color: #2f303b;
   color: #fff;
   font-size: 1.1rem;
   border: none;
@@ -115,7 +115,7 @@ h2::after {
 }
 
 .actions input[type="submit"]:hover {
-  background-color: #4758f0;
+  background-color: #2f303b;
 }
 
 .field input:focus {
@@ -191,7 +191,7 @@ h2::after {
 }
 
 .navbar {
-  background-color: #4758f0;
+  background-color: #2f303b;
   padding: 20px;
   color: white;
   display: flex;
@@ -242,7 +242,7 @@ td a {
 }
 
 .hero > a {
-  background-color: #4758f0;
+  background-color: #2f303b;
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
@@ -252,7 +252,7 @@ td a {
 }
 
 .recipe-buttons a {
-  background-color: #4758f0;
+  background-color: #2f303b;
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
@@ -272,7 +272,7 @@ td a {
 }
 
 .hero > a:hover {
-  background-color: #4758f0;
+  background-color: #2f303b;
 }
 
 .hero p {
@@ -289,7 +289,7 @@ table {
 }
 
 thead {
-  background-color: #4758f0;
+  background-color: #2f303b;
   color: #fff;
 }
 
@@ -374,7 +374,7 @@ li div {
 }
 
 .recipe-buttons a:hover {
-  background-color: #4758f0;
+  background-color: #2f303b;
 }
 
 select {
