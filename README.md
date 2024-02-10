@@ -130,9 +130,11 @@ rspec
 - Twitter: [@nyamekye2131](https://twitter.com/nyamekye2131)
 - LinkedIn: [Evans Kofi Nyamekye](https://www.linkedin.com/in/evans-kofi-nyamekye-1980a4117/)
 
-👤 **Karan Joshi**
+👤 **Ahmed**
 
-- GitHub: [@newtonah0](https://github.com/newtonah0)
+- GitHub: [@newtonah()](https://github.com/newtonah0)
+- Twitter: [@]()
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/ah-mh-4a0661271)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
