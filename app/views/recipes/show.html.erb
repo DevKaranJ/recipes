@@ -1,46 +1,53 @@
-<%= stylesheet_link_tag "recipedetails" %>
-
+<%= stylesheet_link_tag "inventories_list" %>
 <div class="container">
-  <h1><%= @recipe.name %></h1>
-  <div class="details">
-    <p>Preparation Time: <%= @recipe.preparation_time %> minutes</p>
-    <p>Cooking Time: <%= @recipe.cooking_time %> minutes</p>
-    <p>Description: <%= @recipe.description %></p>
-    <p>Public: <%= @recipe.public ? 'Yes' : 'No' %></p>
-
-    <% if @recipe.user == current_user %>
-  <div class="button-group">
-    <%= link_to "Generate Shopping List (Coming Soon)", "#", class: "btn btn-primary disabled" %>
-    <%= link_to "Add Ingredients", new_recipe_ingredient_path(@recipe), class: "btn btn-primary" %>
+  <h1><%= @recipe.name %> 📝</h1>
+  <div class="genral-detal">
+    <div class="details">
+      <h3>Preparation time: <%= @recipe.preparation_time %></h3>
+      <h3>Cooking time: <%= @recipe.cooking_time %></h3>
+      <h3><%= @recipe.description %></h3>
+    </div>
+    <div>
+      <%= form_with(model: @recipe, url: user_recipe_path(@user, @recipe), local: true, method: :patch) do |f| %>
+        <div>
+          <p><%= f.label :public %>
+            <label class="switch">
+              <%= f.hidden_field :public, value: false %>
+              <%= f.check_box :public, { onchange: 'this.form.submit()', 
+                                        disabled: @user != current_user }, true, false %>
+              <span class="slider"></span>
+            </label>
+          </p>
+        </div>
+      <% end %>
+    </div>
   </div>
-<% end %>
 
-    <hr>
-
-<h2>Ingredients</h2>
-
-<table class="ingredients-table">
-  <thead>
-    <tr>
-      <th>Food Name</th>
-      <th>Quantity</th>
-      <th>Value</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @recipe.ingredients.each do |ingredient| %>
-      <tr>
-        <td><%= ingredient.food_name %></td>
-        <td><%= "#{ingredient.quantity} #{ingredient.quantity_unit}" %></td>
-        <td><%= ingredient.value %></td>
-        <td>
-        <%= button_to "Remove", recipe_ingredient_path(@recipe, ingredient), method: :delete, data: { confirm: "Are you sure you want to remove this ingredient?" }, class:"btn btn-danger remove-button" %>
-          <%= link_to "Modify", edit_recipe_ingredient_path(@recipe, ingredient), class: "btn btn-primary" %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <div class="btns">
+    <%= button_to "Generate Shopping List", shopping_list_user_recipe_path(@user, @recipe), method: :get, class: "add-food-link"%>
+    <%= button_to "Add ingredients", new_user_recipe_recipe_food_path(@user, @recipe), class: "add-food-link", 
+                  method: :get, disabled: @recipe.user != current_user  %>
+  </div>
+  <div>
+    <table>
+      <thead>
+          <tr>
+            <th>Food</th>
+            <th>Quantity</th>
+            <th>Value</th>
+            <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>    
+        <% @recipe_foods.each do |recipe_food| %>
+          <tr>
+              <td><%= recipe_food.food.name %></td>
+              <td><%= recipe_food.quantity %> <%= recipe_food.food.measurement_unit %> </td>
+              <td>$ <%= recipe_food.food.price * recipe_food.quantity %></td>
+              <td><%= button_to 'Remove', user_recipe_recipe_food_path(@user, @recipe, recipe_food), method: :delete, disabled: @user != current_user %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>

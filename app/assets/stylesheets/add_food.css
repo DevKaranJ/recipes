@@ -1,17 +1,17 @@
-
 h1 {
-  color: #333;
   text-align: center;
+  color: #333;
+  font-family: 'Poppins', sans-serif;
   margin-top: 20px;
+  font-size: 25px;
 }
 
 .form {
   width: 30%;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  margin-top: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 }
 
 .form div {
@@ -21,22 +21,35 @@ h1 {
 .form label {
   display: block;
   margin-bottom: 5px;
+  font-weight: bold;
 }
 
-.form input,
-.form select {
+.form input[type="text"],
+.form textarea,
+.form input[type="number"] {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
 }
 
-.form input[type="submit"] {
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
+.form input[type="checkbox"] {
+  margin-top: 10px;
 }
 
-.form input[type="submit"]:hover {
+.button {
+  display: block;
+  width: 30%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.button:hover {
   background-color: #0056b3;
 }
