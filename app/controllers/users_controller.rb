@@ -11,8 +11,12 @@ class UsersController < ApplicationController
   end
 
   def update_name
-    current_user.update(name_params)
-    redirect_to users_path, notice: 'Name updated successfully.'
+    @user = current_user
+    if @user.update(user_params)
+      redirect_to users_path, notice: 'Name updated successfully.'
+    else
+      render :index
+    end
   end
 
   private

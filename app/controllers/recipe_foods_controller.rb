@@ -18,8 +18,6 @@ class RecipeFoodsController < ApplicationController
   end
 
   def create
-    @user = User.find(params[:user_id])
-    @recipe = @user.recipes.find(params[:recipe_id])
     @recipe_food = @recipe.recipe_foods.build(recipe_food_params)
 
     if @recipe_food.save
@@ -30,8 +28,6 @@ class RecipeFoodsController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:user_id])
-    @recipe = @user.recipes.find(params[:recipe_id])
     @recipe_food = @recipe.recipe_foods.find(params[:id])
     @recipe_food.destroy
 
