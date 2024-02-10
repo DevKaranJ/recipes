@@ -24,7 +24,7 @@ development:
   database: recipes_development
   database adapter: postgresql
   username: postgres
-  password: div@var9
+  password: domain-101
   host: localhost
 
 test:
@@ -32,7 +32,7 @@ test:
   database: recipes_test
   database adapter: postgresql
   username: postgres
-  password: div@var9
+  password: domain-101
   host: localhost
 
 production:

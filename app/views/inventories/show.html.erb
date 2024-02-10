@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag "inventories_details" %>
 <div class="container">
   <h1>Inventory Details</h1>
 
@@ -18,7 +19,6 @@
       <% end %>
     </ul>
   </div>
-
   <%= link_to 'Back to Inventories List', user_inventories_path(@user) %>
   <h2>Add Food to Inventory</h2>
   <%= link_to 'Add Food', new_user_inventory_inventory_food_path(@user, @inventory), class: 'button' %>

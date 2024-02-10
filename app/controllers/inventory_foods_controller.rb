@@ -6,6 +6,9 @@ class InventoryFoodsController < ApplicationController
   def new
     @inventory_food = @inventory.inventory_foods.new
     render 'add_food'
+    @user = User.find(params[:user_id])
+    @recipe = @user.recipes.find(params[:recipe_id])
+    @recipe_food = @recipe.recipe_foods.build
   end
 
   def create
